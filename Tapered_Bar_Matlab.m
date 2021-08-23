@@ -1,15 +1,11 @@
 clear all
 clc
-%clg
-axis normal
 % Tapering steel
 E = 200E9; % Pa
 A0 = (pi/4)*(50E-3)^2; % m^2
 At = (pi/4)*(20E-3)^2; % m^2
 L = 0.1; % m
-echo on
 N = 10; % Number of elements
-echo off
 % Compute element length, area, k and force
 Le = L/N;
 for i = 1:N,
