@@ -25,7 +25,9 @@ K(i,i+1) = -k(i+1);
 end
 K(N,N-1) = -k(N);
 K(N,N) = k(N);
-F=[0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;300];
+% defining force {F}. It is a column vector.
+F = zeros(N,1);
+F(N) = 300;
 % Solve for displacements {q}. It is a column vector.
 q =(inv(K)*F)*1000;
 % Solve stresses {sigma}. It is a column vector.
