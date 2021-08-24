@@ -5,12 +5,12 @@ E = 200E9; % Pa
 A0 = (pi/4)*(50E-3)^2; % m^2
 At = (pi/4)*(20E-3)^2; % m^2
 L = 0.1; % m
-N = 10; % Number of elements
-% Compute element length, area, k and force
+N = 30; % Number of elements
+% Compute element length, area, k
 Le = L/N;
 for i = 1:N,
-Atop = A0 -(A0-At)/N*(i-1);
-Abot = A0 - (A0-At)/N*i;
+Atop = A0-(A0-At)/N*(i-1);
+Abot = A0-(A0-At)/N*i;
 A(i) = (Atop+Abot)/2;
 k(i) = A(i)*E/Le;
 end
@@ -25,7 +25,13 @@ K(i,i+1) = -k(i+1);
 end
 K(N,N-1) = -k(N);
 K(N,N) = k(N);
-F=[0;0;0;0;0;0;0;0;0;300];
+F=[0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;300];
 % Solve for displacements {q}. It is a column vector.
 q =(inv(K)*F)*1000;
-
+% Solve stresses {sigma}. It is a column vector.
+valueSigma = zeros(N:N);
+for i = N:-1:2,
+sigma=(q(i)-q(i-1))*E/(Le*1000);
+valueSigma(i) = sigma; %Pa
+display(sigma);
+end
